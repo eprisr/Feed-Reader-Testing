@@ -103,9 +103,24 @@ $(function() {
         });
 
     /* TODO: Write a new test suite named "New Feed Selection" */
+    describe('New Feed Selection', function() { //Inspired by EMEA Feed Reader Testing (Alain - Updated) Walk Thru - Youtube
+            /* TODO: Write a test that ensures when a new feed is loaded
+             * by the loadFeed function that the content actually changes.
+             * Remember, loadFeed() is asynchronous.
+             */
+            beforeEach(function(done) {
+              loadFeed(1, function() {
+                firstFeed = document.querySelector('.feed').innerHTML;
 
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
+                loadFeed(0, function() {
+                  secondFeed = document.querySelector('.feed').innerHTML;
+                  done();
+                });
+              });
+            })
+
+            it('content changes', function() {
+              expect(firstFeed).not.toBe(secondFeed);
+            });
+        });
 }());
